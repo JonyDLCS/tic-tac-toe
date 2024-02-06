@@ -26,6 +26,11 @@ body{
   text-align:center;
   width: 100px;
   height: 100px;
+  
+}
+.square:hover{
+  background-color: #7c7c7c;
+  cursor: pointer;
 }
 
 .square:focus{
@@ -36,4 +41,38 @@ body{
 .status{
   margin:20px;
   font-size: 24px;
+  text-align: center;
+}
+
+.text-blue{
+  color:rgb(123, 123, 252)
+}
+
+.text-red{
+  color:rgb(255, 115, 115)
+}
+.not-clickable{
+  background-color: #333;
+  cursor:auto;
+}
+
+.not-clickable:hover{
+  background-color: #333;
+  cursor:auto;
+}
+
+.no-top-border{
+  border-top: none;
+}
+
+.no-left-border{
+  border-left:none;
+}
+
+.no-right-border{
+  border-right: none;
+}
+
+.no-bottom-border{
+  border-bottom: none;
 }

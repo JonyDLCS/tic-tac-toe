@@ -1,11 +1,7 @@
-import React, { useState } from 'react'
-import Square from './Square'
+import React, { useEffect, useState } from 'react';
+import Square from './Square';
+import toast, {Toaster} from 'react-hot-toast';
 
-const gameStyles = {
-    backgroundColor: 'skyblue',
-    margin:10,
-    padding:20,
-}
 
 function Board() {
     const initialSquares = Array(9).fill(null);
@@ -17,7 +13,9 @@ function Board() {
         const newSquares = [...squares];
         const winnerDeclared = Boolean(calculateWinner(newSquares))
         const squareFilled = Boolean(newSquares[i]);
+        
         if (winnerDeclared || squareFilled){
+            
             return
         }
         
@@ -27,17 +25,47 @@ function Board() {
     }
 
     const renderSquare = (i) =>{
+        let classLines = '';
+        if([0,1,2].includes(i)){
+            classLines += ' no-top-border '
+        }
+
+        if([0,3,6].includes(i)){
+            classLines += ' no-left-border '
+        }
+
+        if([2,5,8].includes(i)){
+            classLines += ' no-right-border '
+        }
+
+        if([6,7,8].includes(i)){
+            classLines += ' no-bottom-border '
+        }
+
+
         return(
-            <Square value={squares[i]} 
-            onClickEvent = {()=> handleClickEvent(i)}/>
+            <Square classLines={classLines} value={squares[i]} 
+            onClickEvent = {()=> {handleClickEvent(i)}}/>
         )
     }
     const winner = calculateWinner(squares);
+
+    useEffect(()=>{
+        if (winner) {
+            toast(`Winner: ${winner}`,{
+                duration:2000,
+                icon:'🎉',
+            })
+        }
+        
+    }, [winner])
+    
     const status = winner?
     `Winner: ${winner}`:
-    `Next player:${xIsNext? 'X': 'O'}`;
-
+    `Next player: ${xIsNext? 'X':'O'}`;
+    
   return (
+    <>
     <div>
         <div className='status'>{status}</div>
         <div className='board-row'>
@@ -56,6 +84,7 @@ function Board() {
             {renderSquare(8)}
         </div>
     </div>
+    </>
   )
 }
 
